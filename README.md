@@ -1,6 +1,8 @@
 # 📝 Blog App
 
 A simple blog web application built with **Node.js, Express, EJS, and MongoDB** where users can create, view, edit, delete blog posts, and add comments.
+🌐 **Live Demo**: [https://blog-umq6.onrender.com/](https://blog-umq6.onrender.com/)  
+
 
 ---
 
