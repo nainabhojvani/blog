@@ -18,6 +18,6 @@ A simple blog web application built with **Node.js, Express, EJS, and MongoDB** 
 
 - **Backend:** Node.js, Express.js
 - **Frontend:** EJS templates, CSS
-- **Database:** MongoDB (Mongoose ODM)
+- **Database:** MongoDB 
 
 ---
