@@ -1,0 +1,150 @@
+<!-- Light, modern BlogHub navbar (safe colors on white) -->
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top"
+>
+  <div class="container">
+    <!-- Brand -->
+    <a
+      class="navbar-brand d-flex align-items-center fw-semibold text-dark"
+      href="/"
+      style="letter-spacing: 0.5px"
+    >
+      <i class="bi bi-journal-text me-2 text-primary"></i> BlogHub
+    </a>
+
+    <!-- Toggler -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item">
+          <a
+            class="nav-link px-3 rounded-2 <% if (locals.activePage === 'home') { %>active<% } %>"
+            href="/"
+          >
+            <i class="bi bi-house-door me-1"></i> Home
+          </a>
+        </li>
+
+        <% if (locals.user) { %>
+        <li class="nav-item">
+          <a
+            class="nav-link px-3 rounded-2 <% if (locals.activePage === 'add-blog') { %>active<% } %>"
+            href="/blog/add-new"
+          >
+            <i class="bi bi-plus-circle me-1"></i> Add Blog
+          </a>
+        </li>
+
+        <!-- Profile -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle d-flex align-items-center px-2 rounded-2"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="<%= (user.profileImage || '') %>"
+              alt="Profile"
+              class="rounded-circle me-2 border"
+              style="width: 32px; height: 32px; object-fit: cover"
+            />
+            <span class="text-dark"><%= user.fullName %></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+            <a
+              class="dropdown-item d-flex align-items-center py-2"
+              href="/blog/my-profile"
+            >
+              <i class="bi bi-person-circle me-2 text-primary"></i> My Profile
+            </a>
+            <a
+              class="dropdown-item d-flex align-items-center py-2"
+              href="/blog/my"
+            >
+              <i class="bi bi-journal-text me-2 text-success"></i> My Blogs
+            </a>
+            <a
+              class="dropdown-item d-flex align-items-center py-2"
+              href="/blog/add-new"
+            >
+              <i class="bi bi-pencil-square me-2 text-warning"></i> Write a Blog
+            </a>
+
+            <!-- Divider -->
+            <div class="dropdown-divider"></div>
+
+            <!-- Logout -->
+            <a
+              class="dropdown-item d-flex align-items-center py-2 text-danger"
+              href="/user/logout"
+            >
+              <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </a>
+          </ul>
+        </li>
+
+        <% } else { %>
+        <li class="nav-item">
+          <a
+            class="nav-link px-3 rounded-2 <% if (locals.activePage === 'signup') { %>active<% } %>"
+            href="/user/signup"
+          >
+            <i class="bi bi-person-plus me-1"></i> Create Account
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link px-3 rounded-2 <% if (locals.activePage === 'signin') { %>active<% } %>"
+            href="/user/signin"
+          >
+            <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+          </a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<% if (locals.error) { %>
+<div class="container mt-3">
+  <div class="alert alert-danger shadow-sm" role="alert">
+    <%= locals.error %>
+  </div>
+</div>
+<% } %>
+
+<style>
+  /* Scoped to light (white) navbar only */
+  .navbar.bg-white .nav-link {
+    color: #343a40;
+    transition: background-color 0.2s ease, color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .navbar.bg-white .nav-link:hover {
+    color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.08);
+  }
+  .navbar.bg-white .nav-link.active {
+    color: #0d6efd;
+    font-weight: 600;
+    background-color: rgba(13, 110, 253, 0.12);
+  }
+  .navbar.bg-white .navbar-brand:hover {
+    color: #0d6efd !important;
+  }
+</style>

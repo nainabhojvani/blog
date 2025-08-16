@@ -1,0 +1,36 @@
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+  crossorigin="anonymous"
+></script>
+<script>
+  const popup = document.getElementById("edit-popup");
+  const editBtn = document.getElementById("edit-btn");
+  const closePopup = document.getElementById("close-popup");
+  const form = document.getElementById("edit-form");
+
+  editBtn.addEventListener("click", () => popup.classList.remove("hidden"));
+  closePopup.addEventListener("click", () => popup.classList.add("hidden"));
+
+  form.addEventListener("submit", async (e) => {
+    const formData = new FormData(form);
+
+    const res = await fetch("/blog/update-profile", {
+      method: "POST",
+      body: formData,
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      document.getElementById("profile-name").textContent = data.user.fullName;
+      document.getElementById("profile-email").textContent = data.user.email;
+      document.getElementById("profile-bio").textContent = data.user.bio;
+      if (data.user.profileImage) {
+        document.getElementById("profile-img").src = data.user.profileImage;
+      }
+      popup.classList.add("hidden");
+    } else {
+      alert("Error updating profile");
+    }
+  });
+</script>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Homepage</title>
+    <style>
+      .blog-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+      .card-img-top {
+        height: 200px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <%- include('./partials/nav') %>
+
+    <div class="container py-5">
+      <h1 class="mb-4 fw-bold text-center text-primary">
+        <i class="bi bi-journal-text me-2"></i> Latest Blogs
+      </h1>
+
+      <div class="row g-4">
+        <% if (blogs.length === 0) { %>
+        <div class="col-12 text-center text-muted">
+          <i class="bi bi-emoji-frown" style="font-size: 2rem"></i>
+          <p class="mt-2">No blogs available yet. Be the first to post!</p>
+        </div>
+        <% } else { %> <% blogs.forEach(blog => { %>
+        <div class="col-md-4">
+          <div class="card blog-card h-100 border-0 shadow-sm">
+            <img
+              src="<%= blog.coverImageURL %>"
+              class="card-img-top"
+              alt="Blog Cover"
+            />
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-semibold"><%= blog.title %></h5>
+              <p class="card-text text-muted small mb-3">
+                <%= blog.createdAt ? blog.createdAt.toDateString() : '' %>
+              </p>
+              <a
+                href="/blog/<%= blog._id %>"
+                class="btn btn-outline-primary mt-auto"
+              >
+                Read More <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <% }) %> <% } %>
+      </div>
+    </div>
+
+    <%- include('./partials/scripts') %>
+  </body>
+</html>

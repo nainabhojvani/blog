@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title><%= blog.title %></title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .blog-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+      .author-box {
+        background: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+      .author-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .comment-box {
+        background: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 15px;
+      }
+      .share-buttons button {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container my-5" style="max-width: 900px">
+      <!-- Blog Title -->
+      <h1 class="fw-bold mb-3"><%= blog.title %></h1>
+      <p class="text-muted">
+        By <strong><%= blog.createdBy.fullName %></strong> · <%=
+        blog.createdAt.toDateString() %> · 5 min read
+      </p>
+
+      <!-- Blog Cover Image -->
+      <img
+        src="<%= blog.coverImageURL %>"
+        alt="Blog Cover"
+        class="img-fluid rounded mb-4"
+      />
+
+      <!-- Blog Content -->
+      <div class="blog-content bg-white p-4 rounded shadow-sm mb-5">
+        <%= blog.body %>
+      </div>
+
+      <!-- Author Info -->
+      <h4 class="mb-3">Author</h4>
+      <div class="author-box mb-5">
+        <img
+          src="<%= blog.createdBy.profileImage %>"
+          alt="Author"
+          class="author-avatar"
+        />
+        <div>
+          <h6 class="mb-0"><%= blog.createdBy.fullName %></h6>
+          <!-- prettier-ignore -->
+          <small class="text-muted"><%= blog.createdBy.bio || "Passionate blogger sharing insights on tech and life." %></small>
+        </div>
+      </div>
+
+      <!-- Comments Section -->
+      <h4 class="mb-3">Comments (<%= comments.length %>)</h4>
+      <% comments.forEach(comment => { %>
+      <div class="comment-box">
+        <img
+          src="<%= blog.createdBy.profileImage %>"
+          alt="Author"
+          class="author-avatar"
+        />
+        <strong><%= comment.createdBy.fullName %></strong>
+        <p class="mb-1"><%= comment.content %></p>
+      </div>
+      <% }) %>
+
+      <!-- Add Comment Form -->
+      <form action="/blog/comment/<%= blog._id %>" method="POST" class="mt-4">
+        <div class="mb-3">
+          <textarea
+            name="content"
+            class="form-control"
+            placeholder="Write your comment..."
+            rows="3"
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark">Post Comment</button>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+  </body>
+</html>
